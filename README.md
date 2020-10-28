@@ -1,3 +1,1 @@
-"# 490A" 
-
-Douglas Silvermannnn
+"# 490A Final Project"

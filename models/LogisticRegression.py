@@ -13,11 +13,6 @@ def convert_data(file_name, column):
     
     return data_struct
 
-def print_confusion_matrix(file_nameA, file_nameB, column):
-    choices_A = convert_data(file_nameA, column)
-    choices_B = convert_data(file_nameB, column)
-    print(confusion_matrix(choices_A, choices_B))
-
 # from HW1
 def tokenize_doc(doc):
     # From GEEKSFORGEEKS
@@ -56,27 +51,6 @@ def get_token_vectors(file_name):
     X = v.fit_transform(tokenized_sentences)
     return X
 
-def ratio(file_name):
-    opinion = convert_data(file_name, 'Opinion')
-    proper_noun = convert_data(file_name, 'Proper Noun')
-    count_bothY = 0
-    count_bothN = 0
-    count_proper_not_opinion = 0
-    for i in range (0, len(opinion)):
-        if (opinion[i] == proper_noun[i]):
-            if(opinion[i] == 'Y'):
-                count_bothY += 1
-            else:
-                count_bothN +=1
-        else:
-            if(proper_noun[i] == 'Y'):
-                count_proper_not_opinion += 1
-    print("Y agree= " + str(count_bothY))
-    print("N agree= " + str(count_bothN))
-    print("False Positive= " + str(count_proper_not_opinion))
-    print("False Negative " + str(250 - count_bothY - count_bothN - count_proper_not_opinion))
-    print("\n")
-
 
 def calculate_precision(y_true, y_pred):
     Tp = 0.01
@@ -99,47 +73,3 @@ def calculate_recall(y_true, y_pred):
             else:
                 Fn += 1
     return Tp / (Tp + Fn)
-
-def Opinion_Proper_Noun_correlation(file_name):
-    opinion_data = convert_data(file_name, "Opinion")
-    PN_data = convert_data(file_name, "Proper Noun")
-    print("Proper Noun vs Opinion statistics: ")
-    print("Precision score : " + str(calculate_precision(opinion_data, PN_data)))
-    print("Recall score: " + str(calculate_recall(opinion_data, PN_data)))
-
-
-def top_ten(file_name, column):
-    train_X = convert_data(file_name, 'txt')
-    train_Y = convert_data(file_name, column)
-
-    word_count_Y = defaultdict(float)
-    word_count_N = defaultdict(float)
-    index = 0
-    for sentence in train_X:
-        token_array = tokenize_doc(sentence)
-        if(train_Y[index] == 'Y'):
-            for word in token_array:
-                word_count_Y[word] += token_array[word]
-        else:
-            for word in token_array:
-                word_count_N[word] += token_array[word]
-        index += 1
-    sort_dict_Y = sorted(word_count_Y.items(), key=lambda x: x[1], reverse=True)
-    sort_dict_N = sorted(word_count_N.items(), key=lambda x: x[1], reverse=True)
-    i = 0
-    print("Top ten words for POS label in column: " + column)
-    for word in sort_dict_Y:
-        if(i < 10):
-            print(word[0], word[1])
-            i += 1
-        else: 
-            break
-    print(" ")
-    print("Top ten words for NEG label in column: " + column)
-    j = 0
-    for word in sort_dict_N:
-        if(j < 10):
-            print(word[0], word[1])
-            j += 1
-        else: 
-            break

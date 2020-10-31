@@ -5,23 +5,11 @@ from sklearn.linear_model import LogisticRegressionCV
 from sklearn.metrics import confusion_matrix
 from sklearn.metrics import accuracy_score
 
-def convert_data(file_name, column):
-    data_struct = []
-    data = pd.read_csv(file_name)
-    for index, row in data.iterrows():
-        data_struct.append(row[column])
-    
-    return data_struct
+
+import ConvertData
 
 # from HW1
 def tokenize_doc(doc):
-    # From GEEKSFORGEEKS
-    # removes punctuation from string
-    punc = '''!()-[]{};:'"\,<>./?@#$%^&*_~'''
-    for ele in doc:  
-        if ele in punc:  
-            doc = doc.replace(ele, "")
-
     # From HW1
     bow = defaultdict(float)
     tokens = doc.split()

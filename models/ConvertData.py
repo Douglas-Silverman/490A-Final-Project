@@ -45,12 +45,14 @@ def convert_data(file_name):
             sentiment = 'Positive'
         if(sentiment == 'Extremely Negative'):
             sentiment = 'Negative'
+        if(sentiment != 'Positive' or sentiment != 'Negative'):
+            sentiment = 'Neutral'
         data_struct.append([tweet, sentiment])
     
     return data_struct
 
 
-# print(convert_data("./Datasets/Corona_NLP_train.csv"))
+#print(convert_data("./Datasets/Corona_NLP_train.csv"))
 
 
 def get_tweet(file_name):

@@ -33,6 +33,8 @@ def clean_data(string):
         if ele in punc:  
             text = text.replace(ele, "")
 
+
+    # https://stackoverflow.com/questions/33404752/removing-emojis-from-a-string-in-python
     regrex_pattern = re.compile(pattern = "["
         u"\U0001F600-\U0001F64F"  # emoticons
         u"\U0001F300-\U0001F5FF"  # symbols & pictographs

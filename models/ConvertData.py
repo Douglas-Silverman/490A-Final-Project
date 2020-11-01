@@ -41,6 +41,10 @@ def convert_data(file_name):
         tweet = row["OriginalTweet"]
         tweet = clean_data(tweet)
         sentiment = row["Sentiment"]
+        if(sentiment == 'Extremely Positive'):
+            sentiment = 'Positive'
+        if(sentiment == 'Extremely Negative'):
+            sentiment = 'Negative'
         data_struct.append([tweet, sentiment])
     
     return data_struct

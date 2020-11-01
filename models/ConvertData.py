@@ -11,7 +11,7 @@ def clean_data(string):
     text = text.lower()
     text = re.sub(r'http\S+', '', text)
 
-    allowed_punc = '''abcdefghijklmnopqrstuvwxyz-@$#% '''
+    allowed_punc = '''abcdefghijklmnopqrstuvwxyz-@$#%0123456789 '''
     for ele in text:  
         if ele not in allowed_punc:  
             text = text.replace(ele, "")
@@ -27,11 +27,11 @@ def clean_data(string):
 
     return regrex_pattern.sub(r'',text)
 
-text0 = "Why dont we make most grocery stores pickup only for the next few weeks? Would reduce crowding, panic buying, contamination, strain on workers. @Google could help build an app in a day. Open each store for 2 hrs for seniors who might be less tech savvy. #COVID2019 #Coronavirus"
-text = u'This is a smiley face \U0001f602'
-print(text) # with emoji
-print(clean_data(text))
-print(clean_data(text0))
+# text0 = "Why dont we make most grocery stores pickup only for the next few weeks? Would reduce crowding, panic buying, contamination, strain on workers. @Google could help build an app in a day. Open each store for 2 hrs for seniors who might be less tech savvy. #COVID2019 #Coronavirus"
+# text = u'This is a smiley face \U0001f602'
+# print(text) # with emoji
+# print(clean_data(text))
+# print(clean_data(text0))
 
 def convert_data(file_name):
     data_struct = []
@@ -77,6 +77,8 @@ def cleaned_csv(file_name, new_file_name):
             df["Sentiment"] = df['Sentiment'].replace(df["Sentiment"][i], 'Negative')
 
     df.to_csv(new_file_name, index = False) ### Name of the file where the cleaned data is going
+
+cleaned_csv("./Datasets/Corona_NLP_train.csv", "./Datasets/Corona_NLP_train_clean.csv")
 
 def get_tweet(file_name):
     return convert_data(file_name)[0]

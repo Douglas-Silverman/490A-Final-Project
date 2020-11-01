@@ -2,22 +2,6 @@ import pandas as pd
 import re
 
 
-
-def convert_data(file_name):
-    data_struct = []
-    data = pd.read_csv(file_name, encoding = 'latin-1')
-    for index, row in data.iterrows():
-        tweet = row["OriginalTweet"]
-        tweet = clean_data(tweet)
-        sentiment = row["Sentiment"]
-        data_struct.append([tweet, sentiment])
-    
-    return data_struct
-
-
-# print(convert_data("./Datasets/Corona_NLP_train.csv"))
-
-
 def clean_data(string):
 
 
@@ -49,6 +33,20 @@ text = u'This is a smiley face \U0001f602'
 print(text) # with emoji
 print(clean_data(text))
 print(clean_data(text0))
+
+def convert_data(file_name):
+    data_struct = []
+    data = pd.read_csv(file_name, encoding = 'latin-1')
+    for index, row in data.iterrows():
+        tweet = row["OriginalTweet"]
+        tweet = clean_data(tweet)
+        sentiment = row["Sentiment"]
+        data_struct.append([tweet, sentiment])
+    
+    return data_struct
+
+
+print(convert_data("./Datasets/Corona_NLP_train.csv"))
 
 
 def get_tweet(file_name):

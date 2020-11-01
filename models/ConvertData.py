@@ -37,13 +37,9 @@ def convert_data(file_name):
     data_struct = []
     data = pd.read_csv(file_name, encoding = 'latin-1')
     for index, row in data.iterrows():
-        tweet = row["OriginalTweet"]
+        tweet = row["Tweet"]
         tweet = clean_data(tweet)
         sentiment = row["Sentiment"]
-        if(sentiment == 'Extremely Positive'):
-            sentiment = 'Positive'
-        if(sentiment == 'Extremely Negative'):
-            sentiment = 'Negative'
         if(sentiment != 'Positive' or sentiment != 'Negative'):
             sentiment = 'Neutral'
         data_struct.append([tweet, sentiment])

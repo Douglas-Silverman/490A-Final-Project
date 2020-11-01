@@ -18,18 +18,18 @@ def tokenize_doc(doc):
         bow[token] += 1.0
     return dict(bow)
 
-def LogisticRegressionCV_classifier(file_name, column):
+def LogisticRegressionCV_classifier(file_name):
     X = get_token_vectors(file_name)
-    train_Y = cd.convert_data(file_name, column)
+    train_Y = cd.convert_data(file_name)
     clf = LogisticRegressionCV(cv=5, random_state=0).fit(X, train_Y)
     y_pred = clf.predict(X)
-    print("Metrics for LR classifier for " + column + ":")
+    print("Metrics for LR classifier for Sentiment: ")
     print("Accuracy Score: " + str(accuracy_score(train_Y, y_pred)))
     print("Precision Score " + str(calculate_precision(train_Y, y_pred)))
     print("Recall Score " + str(calculate_recall(train_Y, y_pred)))
 
 def get_token_vectors(file_name):
-    train_X = cd.convert_data(file_name, 'txt')
+    train_X = cd.convert_data(file_name)
 
     tokenized_sentences = []
     for sentence in train_X:

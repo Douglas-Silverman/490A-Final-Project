@@ -61,19 +61,26 @@ def cleaned_csv(file_name, new_file_name):
 
     df = pd.DataFrame(data, columns = ["Tweet", "Sentiment"])
 
-    for elem in df["Tweet"]:
-        cleaned = clean_data(elem)
-        df["Tweet"] = df['Tweet'].replace(elem,cleaned)
+    #for elem in df["Tweet"]:
+    #    cleaned = clean_data(elem)
+    #    df["Tweet"] = df['Tweet'].replace(elem,cleaned)
 
-    for sent in df["Sentiment"]:
-        if(sent == 'Extremely Positive'):
-            df["Sentiment"] = df['Sentiment'].replace(sent, 'Positive')
-        if(sent == 'Extremely Negative'):
-            df["Sentiment"] = df['Sentiment'].replace(sent, 'Negative')
+    #for sent in df["Sentiment"]:
+    #    if(sent == 'Extremely Positive'):
+    #        df["Sentiment"] = df['Sentiment'].replace(sent, 'Positive')
+    #    if(sent == 'Extremely Negative'):
+    #        df["Sentiment"] = df['Sentiment'].replace(sent, 'Negative')
+    
+    #Supposed to be faster version
+    for i in df.index:
+        cleaned = clean_data(df["Tweet"][i])
+        df["Tweet"] = df['Tweet'].replace(df["Tweet"][i],cleaned)
+        if(df["Sentiment"][i] == 'Extremely Positive'):
+            df["Sentiment"] = df['Sentiment'].replace(df["Sentiment"][i], 'Positive')
+        if(df["Sentiment"][i] == 'Extremely Negative'):
+            df["Sentiment"] = df['Sentiment'].replace(df["Sentiment"][i], 'Negative')
 
     df.to_csv(new_file_name, index = False) ### Name of the file where the cleaned data is going
-
-cleaned_csv("Corona_NLP_train.csv", "Corona_NLP_train_clean.csv")
 
 def get_tweet(file_name):
     return convert_data(file_name)[0]

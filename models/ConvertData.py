@@ -71,7 +71,7 @@ def cleaned_csv(file_name, new_file_name):
         if(sent == 'Extremely Negative'):
             df["Sentiment"] = df['Sentiment'].replace(sent, 'Negative')
 
-    df.to_csv(new_file_name) ### Name of the file where the cleaned data is going
+    df.to_csv(new_file_name, index = False) ### Name of the file where the cleaned data is going
 
 
 def get_tweet(file_name):

@@ -33,8 +33,19 @@ def clean_data(string):
         if ele in punc:  
             text = text.replace(ele, "")
 
-    return text
+    regrex_pattern = re.compile(pattern = "["
+        u"\U0001F600-\U0001F64F"  # emoticons
+        u"\U0001F300-\U0001F5FF"  # symbols & pictographs
+        u"\U0001F680-\U0001F6FF"  # transport & map symbols
+        u"\U0001F1E0-\U0001F1FF"  # flags (iOS)
+                           "]+", flags = re.UNICODE)
+
+    return regrex_pattern.sub(r'',text)
+
 clean_data("Why dont we make most grocery stores pickup only for the next few weeks? Would reduce crowding, panic buying, contamination, strain on workers. @Google could help build an app in a day. Open each store for 2 hrs for seniors who might be less tech savvy. #COVID2019 #Coronavirus")
+text = u'This is a smiley face \U0001f602'
+print(text) # with emoji
+print(clean_data(text))
 
 
 def get_tweet(file_name):

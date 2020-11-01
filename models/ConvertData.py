@@ -44,12 +44,14 @@ def convert_data(file_name):
             sentiment = 'Positive'
         if(sentiment == 'Extremely Negative'):
             sentiment = 'Negative'
+        if(sentiment != 'Positive' or sentiment != 'Negative'):
+            sentiment = 'Neutral'
         data_struct.append([tweet, sentiment])
     
     return data_struct
 
 
-# print(convert_data("./Datasets/Corona_NLP_train.csv"))
+#print(convert_data("./Datasets/Corona_NLP_train.csv"))
 
 def cleaned_csv(file_name, new_file_name):
     df = pd.read_csv(file_name, encoding = 'latin-1') ### Name of file that we're cleaning

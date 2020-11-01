@@ -1,7 +1,7 @@
 import pandas as pd
 from collections import defaultdict
 from sklearn.feature_extraction import DictVectorizer
-from sklearn.linear_model import LogisticRegressionCV
+from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import confusion_matrix
 from sklearn.metrics import accuracy_score
 
@@ -20,13 +20,18 @@ def tokenize_doc(doc):
 
 def LogisticRegressionCV_classifier(file_name):
     X = get_token_vectors(file_name)
-    train_Y = cd.convert_data(file_name)
-    clf = LogisticRegressionCV(cv=5, random_state=0).fit(X, train_Y)
+    train_Y = cd.convert_data(file_name)[1]
+    clf = LogisticRegression(multi_class= 'multinomial').fit(X, train_Y)
     y_pred = clf.predict(X)
+
+    print("accuracy: ", accuracy_score(train_Y, y_pred))
+
+    """
     print("Metrics for LR classifier for Sentiment: ")
     print("Accuracy Score: " + str(accuracy_score(train_Y, y_pred)))
     print("Precision Score " + str(calculate_precision(train_Y, y_pred)))
     print("Recall Score " + str(calculate_recall(train_Y, y_pred)))
+    """
 
 def get_token_vectors(file_name):
     train_X = cd.convert_data(file_name)[0] # get the tweets
@@ -61,3 +66,10 @@ def calculate_recall(y_true, y_pred):
             else:
                 Fn += 1
     return Tp / (Tp + Fn)
+
+
+def main(): 
+    LogisticRegressionCV_classifier('./Datasets/Corona_NLP_test.csv')
+
+if __name__ == '__main__':
+    main()

@@ -18,13 +18,21 @@ def tokenize_doc(doc):
         bow[token] += 1.0
     return dict(bow)
 
-def LogisticRegressionCV_classifier(file_name):
-    X = get_token_vectors(file_name)
-    train_Y = cd.convert_data(file_name)[1]
-    clf = LogisticRegression(multi_class= 'multinomial').fit(X, train_Y)
-    y_pred = clf.predict(X)
+def LogisticRegression_classifier(train_file_name, test_file_name):
+    train_struct = cd.convert_data(train_file_name)
+    test_struct = cd.convert_data(test_file_name)
 
-    print("accuracy: ", accuracy_score(train_Y, y_pred))
+    X = get_token_vectors(train_struct[0])
+    train_Y = train_struct[1]
+
+    X_test = get_token_vectors(test_struct[0])
+    test_Y = test_struct[1]
+
+
+    clf = LogisticRegression(multi_class= 'multinomial').fit(X, train_Y)
+    y_pred = clf.predict(X_test)
+
+    print("accuracy: ", accuracy_score(test_Y, y_pred))
 
     """
     print("Metrics for LR classifier for Sentiment: ")
@@ -33,9 +41,8 @@ def LogisticRegressionCV_classifier(file_name):
     print("Recall Score " + str(calculate_recall(train_Y, y_pred)))
     """
 
-def get_token_vectors(file_name):
-    train_X = cd.convert_data(file_name)[0] # get the tweets
-
+def get_token_vectors(tweets):
+    train_X = tweets # get the tweets
     tokenized_tweets = []
     for tweet in train_X:
         token_array = tokenize_doc(tweet)
@@ -69,7 +76,7 @@ def calculate_recall(y_true, y_pred):
 
 
 def main(): 
-    LogisticRegressionCV_classifier('./Datasets/Corona_NLP_test.csv')
+    LogisticRegression_classifier('./Datasets/Corona_NLP_train_clean.csv', './Datasets/Corona_NLP_test_clean.csv')
 
 if __name__ == '__main__':
     main()

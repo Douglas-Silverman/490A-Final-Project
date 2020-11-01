@@ -15,7 +15,7 @@ def convert_data(file_name):
     return data_struct
 
 
-# print(pd.read_csv("./Datasets/Corona_NLP_train.csv", encoding= ))
+print(convert_data("./Datasets/Corona_NLP_train.csv"))
 
 
 def clean_data(string):
@@ -44,10 +44,10 @@ def clean_data(string):
 
     return regrex_pattern.sub(r'',text)
 
-clean_data("Why dont we make most grocery stores pickup only for the next few weeks? Would reduce crowding, panic buying, contamination, strain on workers. @Google could help build an app in a day. Open each store for 2 hrs for seniors who might be less tech savvy. #COVID2019 #Coronavirus")
-text = u'This is a smiley face \U0001f602'
-print(text) # with emoji
-print(clean_data(text))
+# clean_data("Why dont we make most grocery stores pickup only for the next few weeks? Would reduce crowding, panic buying, contamination, strain on workers. @Google could help build an app in a day. Open each store for 2 hrs for seniors who might be less tech savvy. #COVID2019 #Coronavirus")
+# text = u'This is a smiley face \U0001f602'
+# print(text) # with emoji
+# print(clean_data(text))
 
 
 def get_tweet(file_name):

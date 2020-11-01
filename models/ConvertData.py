@@ -4,7 +4,6 @@ import re
 
 def clean_data(string):
 
-
     # tweet_array = convert_data(file_name)
     # for elem in tweet_array:
     #     for char in tweet_array[0]:
@@ -51,6 +50,26 @@ def convert_data(file_name):
 
 
 # print(convert_data("./Datasets/Corona_NLP_train.csv"))
+
+def cleaned_csv(file_name, new_file_name):
+    df = pd.read_csv(file_name, encoding = 'latin-1') ### Name of file that we're cleaning
+    tweet = df["OriginalTweet"]
+    sentiment = df["Sentiment"]
+    data = {'Tweet': tweet, 'Sentiment': sentiment}
+
+    df = pd.DataFrame(data, columns = ["Tweet", "Sentiment"])
+
+    for elem in df["Tweet"]:
+        cleaned = clean_data(elem)
+        df["Tweet"] = df['Tweet'].replace(elem,cleaned)
+
+    for sent in df["Sentiment"]:
+        if(sent == 'Extremely Positive'):
+            df["Sentiment"] = df['Sentiment'].replace(sent, 'Positive')
+        if(sent == 'Extremely Negative'):
+            df["Sentiment"] = df['Sentiment'].replace(sent, 'Negative')
+
+    df.to_csv(new_file_name) ### Name of the file where the cleaned data is going
 
 
 def get_tweet(file_name):

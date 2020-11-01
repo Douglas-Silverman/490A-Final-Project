@@ -20,7 +20,7 @@ def tokenize_doc(doc):
 
 def LogisticRegressionCV_classifier(file_name, column):
     X = get_token_vectors(file_name)
-    train_Y = convert_data(file_name, column)
+    train_Y = ConvertData.convert_data(file_name, column)
     clf = LogisticRegressionCV(cv=5, random_state=0).fit(X, train_Y)
     y_pred = clf.predict(X)
     print("Metrics for LR classifier for " + column + ":")
@@ -29,7 +29,7 @@ def LogisticRegressionCV_classifier(file_name, column):
     print("Recall Score " + str(calculate_recall(train_Y, y_pred)))
 
 def get_token_vectors(file_name):
-    train_X = convert_data(file_name, 'txt')
+    train_X = ConvertData.convert_data(file_name, 'txt')
 
     tokenized_sentences = []
     for sentence in train_X:

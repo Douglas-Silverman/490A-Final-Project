@@ -77,7 +77,7 @@ def cleaned_csv(file_name, new_file_name):
 
     df.to_csv(new_file_name, index = False) ### Name of the file where the cleaned data is going
 
-cleaned_csv("./Datasets/Corona_NLP_train.csv", "./Datasets/Corona_NLP_train_clean.csv")
+# cleaned_csv("./Datasets/Corona_NLP_train.csv", "./Datasets/Corona_NLP_train_clean.csv")
 cleaned_csv("./Datasets/Corona_NLP_test.csv", "./Datasets/Corona_NLP_test_clean.csv")
 
 

@@ -29,7 +29,7 @@ def LogisticRegression_classifier(train_file_name, test_file_name):
     test_Y = test_struct[1]
 
 
-    clf = LogisticRegression(multi_class= 'multinomial').fit(X, train_Y)
+    clf = LogisticRegression(solver= 'lbfgs', multi_class= 'multinomial').fit(X, train_Y)
     y_pred = clf.predict(X_test)
 
     print("accuracy: ", accuracy_score(test_Y, y_pred))

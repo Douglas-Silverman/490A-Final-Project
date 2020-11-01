@@ -1,7 +1,7 @@
 import pandas as pd
 from collections import defaultdict
 from sklearn.feature_extraction import DictVectorizer
-from sklearn.linear_model import LogisticRegressionCV
+from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import confusion_matrix
 from sklearn.metrics import accuracy_score
 
@@ -21,7 +21,7 @@ def tokenize_doc(doc):
 def LogisticRegressionCV_classifier(file_name):
     X = get_token_vectors(file_name)
     train_Y = cd.convert_data(file_name)
-    clf = LogisticRegressionCV(cv=5, random_state=0).fit(X, train_Y)
+    clf = LogisticRegression(multi_class= 'multinomial').fit(X, train_Y)
     y_pred = clf.predict(X)
     print("Metrics for LR classifier for Sentiment: ")
     print("Accuracy Score: " + str(accuracy_score(train_Y, y_pred)))

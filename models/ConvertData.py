@@ -38,7 +38,6 @@ def convert_data(file_name):
     data = pd.read_csv(file_name, encoding = 'latin-1')
     for index, row in data.iterrows():
         tweet = row["Tweet"]
-        tweet = clean_data(tweet)
         sentiment = row["Sentiment"]
         data_struct.append([tweet, sentiment])
     

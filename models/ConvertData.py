@@ -12,9 +12,9 @@ def clean_data(string):
     text = text.lower()
     text = re.sub(r'http\S+', '', text)
 
-    punc = '''!()[]{};:'"\,<>./^*_~'''
+    allowed_punc = '''abcdefghijklmnopqrstuvwxyz-@$#% '''
     for ele in text:  
-        if ele in punc:  
+        if ele not in allowed_punc:  
             text = text.replace(ele, "")
 
 
@@ -46,7 +46,7 @@ def convert_data(file_name):
     return data_struct
 
 
-print(convert_data("./Datasets/Corona_NLP_train.csv"))
+# print(convert_data("./Datasets/Corona_NLP_train.csv"))
 
 
 def get_tweet(file_name):

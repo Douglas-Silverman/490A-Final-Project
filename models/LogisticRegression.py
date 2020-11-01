@@ -29,14 +29,14 @@ def LogisticRegressionCV_classifier(file_name):
     print("Recall Score " + str(calculate_recall(train_Y, y_pred)))
 
 def get_token_vectors(file_name):
-    train_X = cd.convert_data(file_name)
+    train_X = cd.convert_data(file_name)[0] # get the tweets
 
-    tokenized_sentences = []
-    for sentence in train_X:
-        token_array = tokenize_doc(sentence)
-        tokenized_sentences.append(token_array)
+    tokenized_tweets = []
+    for tweet in train_X:
+        token_array = tokenize_doc(tweet)
+        tokenized_tweets.append(token_array)
     v = DictVectorizer(sparse=False)
-    X = v.fit_transform(tokenized_sentences)
+    X = v.fit_transform(tokenized_tweets)
     return X
 
 

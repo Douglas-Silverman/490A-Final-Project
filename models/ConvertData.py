@@ -73,6 +73,7 @@ def cleaned_csv(file_name, new_file_name):
 
     df.to_csv(new_file_name, index = False) ### Name of the file where the cleaned data is going
 
+cleaned_csv("Corona_NLP_train.csv", "Corona_NLP_train_clean.csv")
 
 def get_tweet(file_name):
     return convert_data(file_name)[0]

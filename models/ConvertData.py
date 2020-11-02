@@ -78,12 +78,24 @@ def cleaned_csv(file_name, new_file_name):
     df.to_csv(new_file_name, index = False) ### Name of the file where the cleaned data is going
 
 # cleaned_csv("./Datasets/Corona_NLP_train.csv", "./Datasets/Corona_NLP_train_clean.csv")
-cleaned_csv("./Datasets/Corona_NLP_test.csv", "./Datasets/Corona_NLP_test_clean.csv")
+# cleaned_csv("./Datasets/Corona_NLP_test.csv", "./Datasets/Corona_NLP_test_clean.csv")
 
 
-def get_tweet(file_name):
-    return convert_data(file_name)[0]
+def countLabels(file_name):
+    sentiments = convert_data(file_name)[1]
+    pos_count = 0.0
+    neg_count = 0.0
+    neu_count = 0.0
+    for sent in sentiments:
+        if(sent == 'Positive'):
+            pos_count += 1
+        elif(sent == 'Negative'):
+            neg_count += 1
+        else:
+            neu_count += 1
+    total = pos_count + neg_count + neu_count
+    print('Positive count= ' + str(pos_count) + ' \t and percentage of ' + str(pos_count / total)+'%')
+    print('Negative count= ' + str(neg_count) + ' \t and percentage of ' + str(neg_count / total)+'%')
+    print('Neutral count= ' + str(neu_count) + ' \t and percentage of ' + str(neu_count / total)+'%')
 
-
-def get_sentiment(file_name):
-    return convert_data(file_name)[1]
+countLabels("./Datasets/Corona_NLP_train_clean.csv")

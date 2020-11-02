@@ -27,12 +27,6 @@ def clean_data(string):
 
     return regrex_pattern.sub(r'',text)
 
-# text0 = "Why dont we make most grocery stores pickup only for the next few weeks? Would reduce crowding, panic buying, contamination, strain on workers. @Google could help build an app in a day. Open each store for 2 hrs for seniors who might be less tech savvy. #COVID2019 #Coronavirus"
-# text = u'This is a smiley face \U0001f602'
-# print(text) # with emoji
-# print(clean_data(text))
-# print(clean_data(text0))
-
 def convert_data(file_name):
     data_struct = []
     data = pd.read_csv(file_name, encoding = 'latin-1')
@@ -42,9 +36,6 @@ def convert_data(file_name):
         data_struct.append([tweet, sentiment])
     
     return data_struct
-
-
-#print(convert_data("./Datasets/Corona_NLP_train.csv"))
 
 def cleaned_csv(file_name, new_file_name):
     df = pd.read_csv(file_name, encoding = 'latin-1') ### Name of file that we're cleaning
@@ -72,15 +63,10 @@ def cleaned_csv(file_name, new_file_name):
             df["Sentiment"] = df['Sentiment'].replace(df["Sentiment"][i], 'Positive')
         if(df["Sentiment"][i] == 'Extremely Negative'):
             df["Sentiment"] = df['Sentiment'].replace(df["Sentiment"][i], 'Negative')
-        if(df["Sentiment"][i] != 'Positive' or df["Sentiment"][i] != 'Negative'):
+        if(df["Sentiment"][i] != 'Positive' and df["Sentiment"][i] != 'Negative'):
             df["Sentiment"] = df['Sentiment'].replace(df["Sentiment"][i], 'Neutral')
 
     df.to_csv(new_file_name, index = False) ### Name of the file where the cleaned data is going
-
-cleaned_csv("./Datasets/Corona_NLP_train.csv", "./Datasets/Corona_NLP_train_clean.csv")
-
-def get_tweet(file_name):
-    return convert_data(file_name)[0]
 
 def count_labels(file_name):
     df = pd.read_csv(file_name)
@@ -96,7 +82,12 @@ def count_labels(file_name):
             neutral += 1
     print(positive, negative, neutral)
 
-count_labels("./Datasets/Corona_NLP_train_clean.csv")
+def main(): 
+    
+    cleaned_csv("./Datasets/Corona_NLP_train.csv", "./Datasets/Corona_NLP_train_clean.csv")
+    cleaned_csv("./Datasets/Corona_NLP_test.csv", "./Datasets/Corona_NLP_test_clean.csv")
 
-def get_sentiment(file_name):
-    return convert_data(file_name)[1]
+    count_labels("./Datasets/Corona_NLP_train_clean.csv")
+
+if __name__ == '__main__':
+    main()

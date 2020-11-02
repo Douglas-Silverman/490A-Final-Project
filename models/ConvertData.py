@@ -70,7 +70,7 @@ def cleaned_csv(file_name, new_file_name):
         df["Tweet"] = df['Tweet'].replace(df["Tweet"][i],cleaned)
         if(df["Sentiment"][i] == 'Extremely Positive'):
             df["Sentiment"] = df['Sentiment'].replace(df["Sentiment"][i], 'Positive')
-        if(df["Sentiment"][i] == 'Extremely Negative'):]
+        if(df["Sentiment"][i] == 'Extremely Negative'):
             df["Sentiment"] = df['Sentiment'].replace(df["Sentiment"][i], 'Negative')
         if(df["Sentiment"][i] != 'Positive' or df["Sentiment"][i] != 'Negative'):
             df["Sentiment"] = df['Sentiment'].replace(df["Sentiment"][i], 'Neutral')
@@ -94,7 +94,7 @@ def count_labels(file_name):
             negative += 1
         if sent == "Neutral":
             neutral += 1
-print(positive, negative, neutral)
+    print(positive, negative, neutral)
 
 count_labels("./Datasets/Corona_NLP_train_clean.csv")
 

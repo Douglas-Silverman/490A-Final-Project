@@ -70,32 +70,33 @@ def cleaned_csv(file_name, new_file_name):
         df["Tweet"] = df['Tweet'].replace(df["Tweet"][i],cleaned)
         if(df["Sentiment"][i] == 'Extremely Positive'):
             df["Sentiment"] = df['Sentiment'].replace(df["Sentiment"][i], 'Positive')
-        if(df["Sentiment"][i] == 'Extremely Negative'):
+        if(df["Sentiment"][i] == 'Extremely Negative'):]
             df["Sentiment"] = df['Sentiment'].replace(df["Sentiment"][i], 'Negative')
         if(df["Sentiment"][i] != 'Positive' or df["Sentiment"][i] != 'Negative'):
             df["Sentiment"] = df['Sentiment'].replace(df["Sentiment"][i], 'Neutral')
 
     df.to_csv(new_file_name, index = False) ### Name of the file where the cleaned data is going
 
-# cleaned_csv("./Datasets/Corona_NLP_train.csv", "./Datasets/Corona_NLP_train_clean.csv")
-# cleaned_csv("./Datasets/Corona_NLP_test.csv", "./Datasets/Corona_NLP_test_clean.csv")
+cleaned_csv("./Datasets/Corona_NLP_train.csv", "./Datasets/Corona_NLP_train_clean.csv")
 
+def get_tweet(file_name):
+    return convert_data(file_name)[0]
 
-def countLabels(file_name):
-    sentiments = convert_data(file_name)[1]
-    pos_count = 0.0
-    neg_count = 0.0
-    neu_count = 0.0
-    for sent in sentiments:
-        if(sent == 'Positive'):
-            pos_count += 1
-        elif(sent == 'Negative'):
-            neg_count += 1
-        else:
-            neu_count += 1
-    total = pos_count + neg_count + neu_count
-    print('Positive count= ' + str(pos_count) + ' \t and percentage of ' + str(pos_count / total)+'%')
-    print('Negative count= ' + str(neg_count) + ' \t and percentage of ' + str(neg_count / total)+'%')
-    print('Neutral count= ' + str(neu_count) + ' \t and percentage of ' + str(neu_count / total)+'%')
+def count_labels(file_name):
+    df = pd.read_csv(file_name)
+    positive = 0
+    negative = 0
+    neutral = 0
+    for sent in df["Sentiment"]:
+        if sent == "Positive":
+            positive += 1
+        if sent == "Negative":
+            negative += 1
+        if sent == "Neutral":
+            neutral += 1
+print(positive, negative, neutral)
 
-countLabels("./Datasets/Corona_NLP_train_clean.csv")
+count_labels("./Datasets/Corona_NLP_train_clean.csv")
+
+def get_sentiment(file_name):
+    return convert_data(file_name)[1]

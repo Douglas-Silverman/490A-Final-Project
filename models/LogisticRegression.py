@@ -30,9 +30,16 @@ def LogisticRegression_classifier(train_file_name, test_file_name):
 
 
     clf = LogisticRegression(solver= 'lbfgs', multi_class= 'multinomial').fit(X, train_Y)
-    y_pred = clf.predict(X_test)
+    y_pred = clf.predict(X)
 
-    print("accuracy: ", accuracy_score(test_Y, y_pred))
+    print("accuracy: ", accuracy_score(train_Y, y_pred))
+
+
+    clf = LogisticRegression(solver= 'lbfgs', multi_class= 'multinomial').fit(X_test, test_Y)
+    y_pred_test = clf.predict(X_test)
+
+    
+    print("accuracy for test data: ", accuracy_score(test_Y, y_pred_test))
 
     """
     print("Metrics for LR classifier for Sentiment: ")

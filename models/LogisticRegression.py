@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 from collections import defaultdict
 from sklearn.feature_extraction import DictVectorizer
 from sklearn.linear_model import LogisticRegression
@@ -22,26 +23,29 @@ def LogisticRegression_classifier(train_file_name, test_file_name):
     train_struct = cd.convert_data(train_file_name)
     test_struct = cd.convert_data(test_file_name)
 
-    X = get_token_vectors(train_struct[0])
-    train_Y = train_struct[1]
+    train_array = np.array(train_struct)
+    test_array = np.array(test_struct)
 
-    X_test = get_token_vectors(test_struct[0])
-    test_Y = test_struct[1]
+    train_X = get_token_vectors(train_array[:,0])
+    train_Y = train_array[:,1]
+
+    test_X = get_token_vectors(test_array[:,0])
+    test_Y = test_array[:,1]
 
 
-    clf = LogisticRegression(solver= 'lbfgs', multi_class= 'multinomial').fit(X, train_Y)
-    y_pred = clf.predict(X)
+    clf = LogisticRegression(solver= 'lbfgs', multi_class= 'multinomial').fit(train_X, train_Y)
+    y_pred = clf.predict(test_X)
 
     print("accuracy: ", accuracy_score(train_Y, y_pred))
 
-    clf = LogisticRegression(solver= 'lbfgs', multi_class= 'multinomial').fit(X_test, test_Y)
-    y_pred_test = clf.predict(X_test)
+    # clf = LogisticRegression(solver= 'lbfgs', multi_class= 'multinomial').fit(X_test, test_Y)
+    # y_pred_test = clf.predict(X_test)
 
     
-    print("accuracy for test data: ", accuracy_score(test_Y, y_pred_test))
+    # print("accuracy for test data: ", accuracy_score(test_Y, y_pred_test))
 
 
-    print(clf.score(X_test, test_Y))
+    print(clf.score(test_X, test_Y))
 
     """
     print("Metrics for LR classifier for Sentiment: ")
@@ -58,6 +62,8 @@ def get_token_vectors(tweets):
         tokenized_tweets.append(token_array)
     v = DictVectorizer(sparse=False)
     X = v.fit_transform(tokenized_tweets)
+    # print(X)
+    # print(v.inverse_transform(X))
     return X
 
 

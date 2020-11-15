@@ -84,10 +84,11 @@ def count_labels(file_name):
 
 def main(): 
     
-    cleaned_csv("./Datasets/Corona_NLP_train.csv", "./Datasets/Corona_NLP_train_clean.csv")
-    cleaned_csv("./Datasets/Corona_NLP_test.csv", "./Datasets/Corona_NLP_test_clean.csv")
+    # cleaned_csv("./Datasets/Corona_NLP_train.csv", "./Datasets/Corona_NLP_train_clean.csv")
+    # cleaned_csv("./Datasets/Corona_NLP_test.csv", "./Datasets/Corona_NLP_test_clean.csv")
 
     count_labels("./Datasets/Corona_NLP_train_clean.csv")
+    count_labels("./Datasets/Corona_NLP_test_clean.csv")
 
 if __name__ == '__main__':
     main()

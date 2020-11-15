@@ -37,23 +37,26 @@ def main():
     train_struct = cd.convert_data('./Datasets/Corona_NLP_train_clean.csv')
     test_struct = cd.convert_data('./Datasets/Corona_NLP_test_clean.csv')
 
-    train_X = get_token_vectors(train_struct[0])
-    print(train_X)
-    print("...")
+
+
+    train_X = get_token_vectors(np.array(train_struct)[:,0])
     train_y = np.array(train_struct)[:,1]
-    print(train_y)
+    #print(train_X.shape)
+    #print(train_y.shape)
 
-    test_X = get_token_vectors(test_struct[0])
-    test_y = test_struct[1]
+    test_X = get_token_vectors(np.array(test_struct)[:,0])
+    test_y = np.array(test_struct)[:,1]
+    #print(test_X.shape)
+    #print(test_y.shape)
 
-    """
 
-    RF = RandomForestClassifier(n_estimators=200, max_depth=3, random_state=0)
+
+
+    RF = RandomForestClassifier(n_estimators=5, max_depth=3, random_state=0)
     RF.fit(train_X, train_y)
     y_pred = RF.predict(test_X)
 
     print(accuracy_score(y_pred, test_y))
-    """
  
     
 

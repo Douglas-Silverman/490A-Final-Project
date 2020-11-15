@@ -39,13 +39,13 @@ def main():
 
 
 
-    train_X = get_token_vectors(np.array(train_struct)[:,0])
-    train_y = np.array(train_struct)[:,1]
+    train_X = get_token_vectors(np.array(train_struct)[:,0])[:5000]
+    train_y = np.array(train_struct)[:,1][:5000]
     #print(train_X.shape)
     #print(train_y.shape)
 
-    test_X = get_token_vectors(np.array(test_struct)[:,0])
-    test_y = np.array(test_struct)[:,1]
+    test_X = get_token_vectors(np.array(test_struct)[:,0])[:5000]
+    test_y = np.array(test_struct)[:,1][:5000]
     #print(test_X.shape)
     #print(test_y.shape)
 

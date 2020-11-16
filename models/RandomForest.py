@@ -1,6 +1,7 @@
 import math
 import numpy as np
 from collections import defaultdict
+from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.feature_extraction import DictVectorizer
 from sklearn.metrics import accuracy_score
 from sklearn.ensemble import RandomForestClassifier
@@ -32,31 +33,65 @@ def get_token_vectors(tweets):
 
 def main():
 
-    np.random.seed(0)
-
     train_struct = cd.convert_data('./Datasets/Corona_NLP_train_clean.csv')
     test_struct = cd.convert_data('./Datasets/Corona_NLP_test_clean.csv')
 
+    train_X = list(np.array(train_struct)[:,0])
+    test_X = list(np.array(test_struct)[:,0])
+    
+    vectorizer = CountVectorizer()
+    vectorizer.fit(train_X)
+    vector = vectorizer.transform(train_X)
+    X_train_rep = vector.toarray()
 
+    vector = vectorizer.transform(test_X)
+    X_test_rep = vector.toarray()
 
-    train_X = get_token_vectors(np.array(train_struct)[:,0])[:5000]
+    """
+    X_train = vectorizer.fit_transform(train_X)
+    X_train_vectorized = X_train.toarray()
+
+    X_test = vectorizer.fit_transform(test_X)
+    X_test_vectorized = X_test.toarray()
+    """
+
+    train_y = np.array(train_struct)[:,1]
+    test_y = np.array(test_struct)[:,1]
+
+    """
+    print(X_train.shape)
+    print(X_train_vectorized.shape)
+    print(X_test.shape)
+    print(X_test_vectorized.shape)
+    """
+
+    RF = RandomForestClassifier(n_estimators=5, max_depth=3, random_state=0)
+    RF.fit(X_train_rep, train_y)
+    y_pred = RF.predict(X_test_rep)
+
+    print(accuracy_score(y_pred, test_y))
+
+    
+
+    """
+    train_X = get_token_vectors(np.array(train_struct)[:,0][:5000])
     train_y = np.array(train_struct)[:,1][:5000]
-    #print(train_X.shape)
+
     #print(train_y.shape)
 
-    test_X = get_token_vectors(np.array(test_struct)[:,0])[:5000]
+    test_X = get_token_vectors(np.array(test_struct)[:,0][:5000])
     test_y = np.array(test_struct)[:,1][:5000]
     #print(test_X.shape)
     #print(test_y.shape)
+    """
 
-
-
-
+    """
     RF = RandomForestClassifier(n_estimators=5, max_depth=3, random_state=0)
     RF.fit(train_X, train_y)
     y_pred = RF.predict(test_X)
 
     print(accuracy_score(y_pred, test_y))
+    """
  
     
 

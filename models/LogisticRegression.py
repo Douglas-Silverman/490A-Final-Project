@@ -64,15 +64,18 @@ def LogisticRegression_classifier(train_file_name, test_file_name):
     test_Y = test_array[:,1]
 
 
-    clf = LogisticRegression(solver= 'lbfgs', multi_class= 'multinomial').fit(train_X, train_Y)
+    clf = LogisticRegression(solver= 'lbfgs', multi_class= 'multinomial', max_iter= 1000)
+    print("start training")
+    clf.fit(train_X, train_Y)
+    print("training done")
     y_pred = clf.predict(test_X)
 
-    print("accuracy: ", accuracy_score(train_Y, y_pred))
+    print("accuracy: ", accuracy_score(y_pred, test_Y))
 
 
 
 
-    print(clf.score(test_X, test_Y))
+    # print(clf.score(test_X, test_Y))
 
     """
     print("Metrics for LR classifier for Sentiment: ")

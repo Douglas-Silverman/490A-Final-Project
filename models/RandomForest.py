@@ -3,7 +3,11 @@ import numpy as np
 from collections import defaultdict
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.feature_extraction import DictVectorizer
+from sklearn.feature_extraction.text import TfidfVectorizer
+
 from sklearn.metrics import accuracy_score
+from sklearn.metrics import precision_score
+from sklearn.metrics import recall_score
 from sklearn.ensemble import RandomForestClassifier
 
 import ConvertData as cd
@@ -40,8 +44,7 @@ def main():
     test_X = list(np.array(test_struct)[:,0])
     
     vectorizer = CountVectorizer()
-    vectorizer.fit(train_X)
-    vector = vectorizer.transform(train_X)
+    vector = vectorizer.fit_transform(train_X)
     X_train_rep = vector.toarray()
 
     vector = vectorizer.transform(test_X)
@@ -69,8 +72,9 @@ def main():
     RF.fit(X_train_rep, train_y)
     y_pred = RF.predict(X_test_rep)
 
-    print(accuracy_score(y_pred, test_y))
-
+    print("accuracy: ", accuracy_score(test_y, y_pred))
+    print("precision: ", precision_score(test_y, y_pred, average= 'macro'))
+    print("recall: ", recall_score(test_y, y_pred, average= 'macro'))
     
 
     """

@@ -2,9 +2,13 @@ import pandas as pd
 import numpy as np
 from collections import defaultdict
 from sklearn.feature_extraction import DictVectorizer
+from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
+
 from sklearn.metrics import confusion_matrix
 from sklearn.metrics import accuracy_score
+from sklearn.metrics import precision_score
+from sklearn.metrics import recall_score
 
 
 import ConvertData as cd
@@ -21,23 +25,26 @@ def tokenize_doc(doc):
 
 def get_token_vectors(tweets):
     train_X = tweets # get the tweets
-    tokenized_tweets = []
-    for tweet in train_X:
-        token_array = tokenize_doc(tweet)
-        tokenized_tweets.append(token_array)
-    v = DictVectorizer(sparse=False)
-    X = v.fit_transform(tokenized_tweets)
+    # tokenized_tweets = []
+    # for tweet in train_X:
+    #     token_array = tokenize_doc(tweet)
+    #     tokenized_tweets.append(token_array)
+    # v = DictVectorizer(sparse=False)
+    # X = v.fit_transform(tokenized_tweets)
+    vectorizer = TfidfVectorizer(encoding= 'latin-1')
+    X = vectorizer.fit_transform(tweets)
+
     # print(X)
     # print(v.inverse_transform(X))
-    return X, v
+    return X, vectorizer
 
 def get_token_vectors_test(tweets, v):
-    train_X = tweets # get the tweets
-    tokenized_tweets = []
-    for tweet in train_X:
-        token_array = tokenize_doc(tweet)
-        tokenized_tweets.append(token_array)
-    X = v.transform(tokenized_tweets)
+    # test_X = tweets # get the tweets
+    # tokenized_tweets = []
+    # for tweet in test_X:
+    #     token_array = tokenize_doc(tweet)
+    #     tokenized_tweets.append(token_array)
+    X = v.transform(tweets)
     return X
 
 
@@ -70,7 +77,9 @@ def LogisticRegression_classifier(train_file_name, test_file_name):
     print("training done")
     y_pred = clf.predict(test_X)
 
-    print("accuracy: ", accuracy_score(y_pred, test_Y))
+    print("accuracy: ", accuracy_score(test_Y, y_pred))
+    print("precision: ", precision_score(test_Y, y_pred, average= 'macro'))
+    print("recall: ", recall_score(test_Y, y_pred, average= 'macro'))
 
 
 

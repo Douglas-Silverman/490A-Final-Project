@@ -1,6 +1,5 @@
-import pandas as pd
 import numpy as np
-from collections import defaultdict
+# from collections import defaultdict
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
 
@@ -12,14 +11,14 @@ from sklearn.metrics import recall_score
 import ConvertData as cd
 
 # from HW1
-def tokenize_doc(doc):
-    # From HW1
-    bow = defaultdict(float)
-    tokens = doc.split()
-    lowered_tokens = map(lambda t: t.lower(), tokens)
-    for token in lowered_tokens:
-        bow[token] += 1.0
-    return dict(bow)
+# def tokenize_doc(doc):
+#     # From HW1
+#     bow = defaultdict(float)
+#     tokens = doc.split()
+#     lowered_tokens = map(lambda t: t.lower(), tokens)
+#     for token in lowered_tokens:
+#         bow[token] += 1.0
+#     return dict(bow)
 
 def get_token_vectors(tweets):
     train_X = tweets # get the tweets

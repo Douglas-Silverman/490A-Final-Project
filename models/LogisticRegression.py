@@ -83,7 +83,7 @@ def LogisticRegression_classifier(train_file_name, test_file_name):
     print("\t recall: ", recall_score(test_Y, y_pred, average= 'macro'))
 
 
-def main(): 
+def main():
     LogisticRegression_classifier('./Datasets/Corona_NLP_train_clean.csv', './Datasets/Corona_NLP_test_clean.csv')
 
 if __name__ == '__main__':

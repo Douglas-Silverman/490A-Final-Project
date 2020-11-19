@@ -36,7 +36,7 @@ def get_token_vectors_test(tweets, v):
 
 
     
-def LogisticRegression_classifier(train_file_name, test_file_name):
+def NaiveBayes_classifier(train_file_name, test_file_name):
     train_struct = cd.convert_data(train_file_name)
     test_struct = cd.convert_data(test_file_name)
 
@@ -58,7 +58,7 @@ def LogisticRegression_classifier(train_file_name, test_file_name):
     test_Y = test_array[:,1]
 
 
-    clf = MultinomialNB()
+    clf = MultinomialNB(alpha = 0.2)
     print("start training")
     clf.fit(train_X, train_Y)
     print("training done")
@@ -68,7 +68,7 @@ def LogisticRegression_classifier(train_file_name, test_file_name):
 
 
 def main():
-    LogisticRegression_classifier('./Datasets/Corona_NLP_train_clean.csv', './Datasets/Corona_NLP_test_clean.csv')
+    NaiveBayes_classifier('./Datasets/Corona_NLP_train_clean.csv', './Datasets/Corona_NLP_test_clean.csv')
 
 if __name__ == '__main__':
     main()

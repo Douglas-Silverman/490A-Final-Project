@@ -63,7 +63,12 @@ def NaiveBayes_classifier(train_file_name, test_file_name):
     print("training done")
     y_pred = clf.predict(test_X)
 
+    print()
+    print("Naive Bayes predictions:")
+    print()
     print("\t accuracy: ", accuracy_score(test_Y, y_pred))
+    print("\t precision: ", precision_score(test_Y, y_pred, average= 'macro'))
+    print("\t recall: ", recall_score(test_Y, y_pred, average= 'macro'))
 
 
 def main():

@@ -1,11 +1,9 @@
 import pandas as pd
 import numpy as np
 from collections import defaultdict
-from sklearn.feature_extraction import DictVectorizer
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
 
-from sklearn.metrics import confusion_matrix
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import precision_score
 from sklearn.metrics import recall_score
@@ -77,44 +75,12 @@ def LogisticRegression_classifier(train_file_name, test_file_name):
     print("training done")
     y_pred = clf.predict(test_X)
 
-    print("accuracy: ", accuracy_score(test_Y, y_pred))
-    print("precision: ", precision_score(test_Y, y_pred, average= 'macro'))
-    print("recall: ", recall_score(test_Y, y_pred, average= 'macro'))
-
-
-
-
-    # print(clf.score(test_X, test_Y))
-
-    """
-    print("Metrics for LR classifier for Sentiment: ")
-    print("Accuracy Score: " + str(accuracy_score(train_Y, y_pred)))
-    print("Precision Score " + str(calculate_precision(train_Y, y_pred)))
-    print("Recall Score " + str(calculate_recall(train_Y, y_pred)))
-    """
-
-
-def calculate_precision(y_true, y_pred):
-    Tp = 0.01
-    Fp = 0.01
-    for i in range (0, len(y_true)):
-        if(y_pred[i] == 'Y'):
-            if(y_true[i] == 'Y'):
-                Tp += 1
-            else:
-                Fp += 1
-    return Tp / (Tp + Fp)
-
-def calculate_recall(y_true, y_pred):
-    Tp = 0.01
-    Fn = 0.01
-    for i in range (0, len(y_true)):
-        if(y_true[i] == 'Y'):
-            if(y_pred[i] == 'Y'):
-                Tp += 1
-            else:
-                Fn += 1
-    return Tp / (Tp + Fn)
+    print()
+    print("Logistic Regression predictions:")
+    print()
+    print("\t accuracy: ", accuracy_score(test_Y, y_pred))
+    print("\t precision: ", precision_score(test_Y, y_pred, average= 'macro'))
+    print("\t recall: ", recall_score(test_Y, y_pred, average= 'macro'))
 
 
 def main(): 

@@ -1,4 +1,5 @@
 import numpy as np
+import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
 
@@ -30,10 +31,11 @@ def LogisticRegression_classifier(train_file_name, test_file_name):
 
 
     vectorizer = get_token_vectors(train_array[:,0])
-    train_X = vectorizer[0]
+    train_X = vectorizer[0] #Xtr
     v = vectorizer[1]
-    train_Y = train_array[:,1]
 
+    train_Y = train_array[:,1]
+    
     
     print(train_X.shape)
 
@@ -55,7 +57,6 @@ def LogisticRegression_classifier(train_file_name, test_file_name):
     print("\t accuracy: ", accuracy_score(test_Y, y_pred))
     print("\t precision: ", precision_score(test_Y, y_pred, average= 'macro'))
     print("\t recall: ", recall_score(test_Y, y_pred, average= 'macro'))
-
 
 def main():
     LogisticRegression_classifier('./Datasets/Corona_NLP_train_clean.csv', './Datasets/Corona_NLP_test_clean.csv')

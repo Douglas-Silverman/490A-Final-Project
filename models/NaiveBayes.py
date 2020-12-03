@@ -11,25 +11,11 @@ import ConvertData as cd
 
 def get_token_vectors(tweets):
     train_X = tweets # get the tweets
-    # tokenized_tweets = []
-    # for tweet in train_X:
-    #     token_array = tokenize_doc(tweet)
-    #     tokenized_tweets.append(token_array)
-    # v = DictVectorizer(sparse=False)
-    # X = v.fit_transform(tokenized_tweets)
     vectorizer = TfidfVectorizer(encoding= 'latin-1')
     X = vectorizer.fit_transform(tweets)
-
-    # print(X)
-    # print(v.inverse_transform(X))
     return X, vectorizer
 
 def get_token_vectors_test(tweets, v):
-    # test_X = tweets # get the tweets
-    # tokenized_tweets = []
-    # for tweet in test_X:
-    #     token_array = tokenize_doc(tweet)
-    #     tokenized_tweets.append(token_array)
     X = v.transform(tweets)
     return X
 

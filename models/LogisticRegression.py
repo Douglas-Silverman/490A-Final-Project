@@ -1,5 +1,4 @@
 import numpy as np
-# from collections import defaultdict
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
 
@@ -10,37 +9,13 @@ from sklearn.metrics import recall_score
 
 import ConvertData as cd
 
-# from HW1
-# def tokenize_doc(doc):
-#     # From HW1
-#     bow = defaultdict(float)
-#     tokens = doc.split()
-#     lowered_tokens = map(lambda t: t.lower(), tokens)
-#     for token in lowered_tokens:
-#         bow[token] += 1.0
-#     return dict(bow)
-
 def get_token_vectors(tweets):
     train_X = tweets # get the tweets
-    # tokenized_tweets = []
-    # for tweet in train_X:
-    #     token_array = tokenize_doc(tweet)
-    #     tokenized_tweets.append(token_array)
-    # v = DictVectorizer(sparse=False)
-    # X = v.fit_transform(tokenized_tweets)
     vectorizer = TfidfVectorizer(encoding= 'latin-1')
     X = vectorizer.fit_transform(tweets)
-
-    # print(X)
-    # print(v.inverse_transform(X))
     return X, vectorizer
 
 def get_token_vectors_test(tweets, v):
-    # test_X = tweets # get the tweets
-    # tokenized_tweets = []
-    # for tweet in test_X:
-    #     token_array = tokenize_doc(tweet)
-    #     tokenized_tweets.append(token_array)
     X = v.transform(tweets)
     return X
 

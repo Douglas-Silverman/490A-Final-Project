@@ -27,8 +27,6 @@ def vader_predict(analyzer, tweets):
 
 def main():
     analyzer = SentimentIntensityAnalyzer()
-
-    # train_struct = cd.convert_data('./Datasets/Corona_NLP_train_clean.csv')
     test_struct = cd.convert_data('./Datasets/Corona_NLP_test_clean.csv')
 
     test_X = list(np.array(test_struct)[:,0])

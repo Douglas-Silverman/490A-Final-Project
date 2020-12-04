@@ -59,30 +59,39 @@ def LogisticRegression_classifier(train_file_name, test_file_name):
     print("\t recall: ", recall_score(test_Y, y_pred, average= 'macro'))
 
 
-def get_top_n(train_file_name, top_n):
+def get_top_n(train_file_name, top_n, label):
     train_struct = cd.convert_data(train_file_name)
 
     train_array = np.array(train_struct)
 
-    vectorizer = get_token_vectors(train_array[:,0])
+    label_array = []
+
+    for tweet in train_array:
+        if(tweet[1] == label):
+            label_array.append(tweet)
+
+    vectorizer = get_token_vectors(np.array(label_array)[:,0])
     train_X = vectorizer[0] #Xtr
     v = vectorizer[1]
 
-    display_scores(v, train_X, top_n)
+    display_scores(v, train_X, top_n, label)
 
-def display_scores(vectorizer, tfidf_result, top_n):
+def display_scores(vectorizer, tfidf_result, top_n, label):
     # http://stackoverflow.com/questions/16078015/
     scores = zip(vectorizer.get_feature_names(),
                  np.asarray(tfidf_result.sum(axis=0)).ravel())
     sorted_scores = sorted(scores, key=lambda x: x[1], reverse=True)
-    print("Top " + str(top_n)+ " Features: \n")
+    print("\nTop " + str(top_n)+ " Features in " + label + " Tweets: \n")
     for i in range(0,top_n):
         item = sorted_scores[i]
-        print(str(item[0]) +": " + str(item[1]))
+        print("\t" + str(item[0]) +": " + str(item[1]))
+    print()
 
 def main():
     # LogisticRegression_classifier('./Datasets/Corona_NLP_train_clean.csv', './Datasets/Corona_NLP_test_clean.csv')
-    get_top_n('./Datasets/Corona_NLP_train_clean.csv', 10)
+    get_top_n('./Datasets/Corona_NLP_train_clean.csv', 10, 'Positive')
+    get_top_n('./Datasets/Corona_NLP_train_clean.csv', 10, 'Negative')
+    get_top_n('./Datasets/Corona_NLP_train_clean.csv', 10, 'Neutral')
 
 if __name__ == '__main__':
     main()

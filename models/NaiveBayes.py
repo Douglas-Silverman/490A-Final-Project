@@ -43,7 +43,7 @@ def NaiveBayes_classifier(train_file_name, test_file_name):
     test_Y = test_array[:,1]
 
 
-    clf = MultinomialNB(alpha = 0.2)
+    clf = MultinomialNB(alpha = 0.28)
     print("start training")
     clf.fit(train_X, train_Y)
     print("training done")

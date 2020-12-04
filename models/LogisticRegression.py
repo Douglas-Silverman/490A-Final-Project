@@ -88,10 +88,10 @@ def display_scores(vectorizer, tfidf_result, top_n, label):
     print()
 
 def main():
-    # LogisticRegression_classifier('./Datasets/Corona_NLP_train_clean.csv', './Datasets/Corona_NLP_test_clean.csv')
-    get_top_n('./Datasets/Corona_NLP_train_clean.csv', 10, 'Positive')
-    get_top_n('./Datasets/Corona_NLP_train_clean.csv', 10, 'Negative')
-    get_top_n('./Datasets/Corona_NLP_train_clean.csv', 10, 'Neutral')
+    LogisticRegression_classifier('./Datasets/Corona_NLP_train_clean.csv', './Datasets/Corona_NLP_test_clean.csv')
+    # get_top_n('./Datasets/Corona_NLP_train_clean.csv', 20, 'Positive')
+    # get_top_n('./Datasets/Corona_NLP_train_clean.csv', 20, 'Negative')
+    # get_top_n('./Datasets/Corona_NLP_train_clean.csv', 20, 'Neutral')
 
 if __name__ == '__main__':
     main()

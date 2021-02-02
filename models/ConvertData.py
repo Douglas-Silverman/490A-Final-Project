@@ -1,23 +1,20 @@
 import pandas as pd
 import re
 
-
+### cleans a string to only allow certain characters
 def clean_data(string):
-
-    # tweet_array = convert_data(file_name)
-    # for elem in tweet_array:
-    #     for char in tweet_array[0]:
     text = string
-    text = text.lower()
-    text = re.sub(r'http\S+', '', text)
+    text = text.lower() # sends tweet to lower case
+    text = re.sub(r'http\S+', '', text) # removes all links from tweet
 
-    allowed_punc = '''abcdefghijklmnopqrstuvwxyz-@$#%0123456789 '''
+    allowed_punc = '''abcdefghijklmnopqrstuvwxyz-@$#%0123456789 ''' # all other characters are removed
     for ele in text:  
         if ele not in allowed_punc:  
             text = text.replace(ele, "")
 
 
     # https://stackoverflow.com/questions/33404752/removing-emojis-from-a-string-in-python
+    # removes emoticons, symbols, and other non-alpha numeric characters
     regrex_pattern = re.compile(pattern = "["
         u"\U0001F600-\U0001F64F"  # emoticons
         u"\U0001F300-\U0001F5FF"  # symbols & pictographs
@@ -27,8 +24,10 @@ def clean_data(string):
 
     return regrex_pattern.sub(r'',text)
 
+
+### converts from a csv to a 2D array
 def convert_data(file_name):
-    data_struct = []
+    data_struct = [] # data structure is in the form [[tweet, sentiment], [tweet, sentiment], ...]
     data = pd.read_csv(file_name, encoding = 'latin-1')
     for index, row in data.iterrows():
         tweet = row["Tweet"]
@@ -37,6 +36,8 @@ def convert_data(file_name):
     
     return data_struct
 
+### cleans the original csv file and removes the 'Extremely Positive' and 'Extremely Negative' classes. 
+### Does no alter original csv file. Creates new csv file with name: 'new_file_name'
 def cleaned_csv(file_name, new_file_name):
     df = pd.read_csv(file_name, encoding = 'latin-1') ### Name of file that we're cleaning
     tweet = df["OriginalTweet"]
@@ -45,17 +46,6 @@ def cleaned_csv(file_name, new_file_name):
 
     df = pd.DataFrame(data, columns = ["Tweet", "Sentiment"])
 
-    #for elem in df["Tweet"]:
-    #    cleaned = clean_data(elem)
-    #    df["Tweet"] = df['Tweet'].replace(elem,cleaned)
-
-    #for sent in df["Sentiment"]:
-    #    if(sent == 'Extremely Positive'):
-    #        df["Sentiment"] = df['Sentiment'].replace(sent, 'Positive')
-    #    if(sent == 'Extremely Negative'):
-    #        df["Sentiment"] = df['Sentiment'].replace(sent, 'Negative')
-    
-    #Supposed to be faster version
     for i in df.index:
         cleaned = clean_data(df["Tweet"][i])
         df["Tweet"] = df['Tweet'].replace(df["Tweet"][i],cleaned)
@@ -68,6 +58,7 @@ def cleaned_csv(file_name, new_file_name):
 
     df.to_csv(new_file_name, index = False) ### Name of the file where the cleaned data is going
 
+### counts the number of Positive, Negative, and Neutral tweets
 def count_labels(file_name):
     df = pd.read_csv(file_name)
     positive = 0
@@ -82,10 +73,11 @@ def count_labels(file_name):
             neutral += 1
     print(positive, negative, neutral)
 
+### run this function to create cleaned datasets
 def main(): 
     
-    # cleaned_csv("./Datasets/Corona_NLP_train.csv", "./Datasets/Corona_NLP_train_clean.csv")
-    # cleaned_csv("./Datasets/Corona_NLP_test.csv", "./Datasets/Corona_NLP_test_clean.csv")
+    cleaned_csv("./Datasets/Corona_NLP_train.csv", "./Datasets/Corona_NLP_train_clean.csv")
+    cleaned_csv("./Datasets/Corona_NLP_test.csv", "./Datasets/Corona_NLP_test_clean.csv")
 
     count_labels("./Datasets/Corona_NLP_train_clean.csv")
     count_labels("./Datasets/Corona_NLP_test_clean.csv")
